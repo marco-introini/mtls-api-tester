@@ -23,14 +23,16 @@
         "symfony/http-client": "^6.1"
     },
     "require-dev": {
+        "driftingly/rector-laravel": "^1.2",
         "fakerphp/faker": "^1.9.1",
+        "larastan/larastan": "^2.5",
         "laravel/pint": "^1.1",
         "laravel/sail": "^1.0.1",
         "mockery/mockery": "^1.4.4",
         "nunomaduro/collision": "^7.0",
-        "nunomaduro/larastan": "^2.5",
         "pestphp/pest": "^2.0",
         "pestphp/pest-plugin-laravel": "^2.0",
+        "rector/rector": "^1.2",
         "spatie/laravel-ignition": "^2.0"
     },
     "autoload": {
