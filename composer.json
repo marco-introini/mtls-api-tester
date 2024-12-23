@@ -11,6 +11,7 @@
         "php": "^8.1.0",
         "ext-curl": "*",
         "ext-dom": "*",
+        "better-futures-studio/filament-local-logins": "^1.2",
         "doctrine/dbal": "^3.3",
         "filament/filament": "^3.2",
         "guzzlehttp/guzzle": "^7.2",
