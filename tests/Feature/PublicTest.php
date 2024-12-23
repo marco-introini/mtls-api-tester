@@ -1,6 +1,6 @@
 <?php
 
-beforeEach(function () {
+beforeEach(function (): void {
     \Pest\Laravel\withoutVite();
 });
 

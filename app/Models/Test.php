@@ -9,12 +9,14 @@ class Test extends Model
 {
     protected $guarded = [];
 
-    protected $casts = [
-        'curl_info' => 'json',
-    ];
-
     public function url(): ?BelongsTo
     {
         return $this->belongsTo(Url::class);
+    }
+    protected function casts(): array
+    {
+        return [
+            'curl_info' => 'json',
+        ];
     }
 }

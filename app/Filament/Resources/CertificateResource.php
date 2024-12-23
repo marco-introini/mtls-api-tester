@@ -55,9 +55,7 @@ class CertificateResource extends Resource
                 Tables\Columns\TextColumn::make('name'),
                 Tables\Columns\TextColumn::make('urls')
                     ->label('Used in Urls')
-                    ->getStateUsing(function (Certificate $record) {
-                        return Url::where('certificate_id', '=', $record->id)->count();
-                    }),
+                    ->getStateUsing(fn(Certificate $record) => Url::where('certificate_id', '=', $record->id)->count()),
             ])
             ->filters([
                 //

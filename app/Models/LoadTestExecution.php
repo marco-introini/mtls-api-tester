@@ -11,14 +11,19 @@ class LoadTestExecution extends Model
 
     protected $guarded = [];
 
-    protected $casts = [
-        'executed_at' => 'datetime',
-        'status' => ExecutionStatusEnum::class,
-    ];
-
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<\App\Models\LoadTest, \App\Models\LoadTestExecution>
+     */
     public function test(): BelongsTo
     {
         return $this->belongsTo(LoadTest::class);
+    }
+    protected function casts(): array
+    {
+        return [
+            'executed_at' => 'datetime',
+            'status' => ExecutionStatusEnum::class,
+        ];
     }
 
 }
