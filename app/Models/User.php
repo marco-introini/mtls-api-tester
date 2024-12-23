@@ -12,7 +12,7 @@ class User extends Authenticatable implements FilamentUser
 {
     use HasApiTokens, HasFactory, Notifiable;
 
-    public function canAccessFilament(): bool
+    public function canAccessFilament(\Filament\Panel $panel): bool
     {
         return $this->is_admin;
     }
