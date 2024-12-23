@@ -27,7 +27,7 @@ class CertificateResource extends Resource
             ->columns(1)
             ->schema([
                 Forms\Components\TextInput::make('name')
-                    ->unique(ignorable: fn (?Certificate $record): ?Certificate => $record)
+                    ->unique(ignoreRecord: true)
                     ->required()
                     ->label('Mnemonic name'),
                 Forms\Components\FileUpload::make('private_key')
