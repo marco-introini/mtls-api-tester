@@ -10,10 +10,11 @@ class ListLoadTests extends ListRecords
 {
     protected static string $resource = LoadTestResource::class;
 
-    protected function getActions(): array
+    #[\Override]
+    protected function getHeaderActions(): array
     {
         return [
-            CreateAction::make(),
+            \Filament\Actions\CreateAction::make(),
         ];
     }
 }
