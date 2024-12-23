@@ -27,3 +27,4 @@ database_backup.sql
 
 /.env.production
 /storage/sql/
+/.phpunit.cache/test-results
