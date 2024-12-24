@@ -9,8 +9,9 @@ class Certificate extends Model
 {
     protected $guarded = [];
 
-    public function urls(): ?HasMany
+    public function apis(): ?HasMany
     {
         return $this->hasMany(Api::class);
     }
+
 }

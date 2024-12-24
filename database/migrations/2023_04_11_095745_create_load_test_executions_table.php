@@ -1,5 +1,6 @@
 <?php
 
+use App\Enum\ExecutionStatusEnum;
 use App\Models\LoadTest;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -13,7 +14,7 @@ return new class extends Migration {
             $table->foreignIdFor(LoadTest::class);
             $table->timestamp('scheduled_at')->nullable();
             $table->timestamp('executed_at')->nullable();
-            $table->string('status')->default(\App\Enum\ExecutionStatusEnum::CREATED->value);
+            $table->string('status')->default(ExecutionStatusEnum::CREATED->value);
             $table->bigInteger('number_requests_effective')->nullable();
             $table->bigInteger('success_number')->nullable();
             $table->bigInteger('failure_number')->nullable();

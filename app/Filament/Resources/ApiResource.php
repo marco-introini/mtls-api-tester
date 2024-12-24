@@ -51,7 +51,6 @@ class ApiResource extends Resource
                     ->nullable(),
                 Forms\Components\Section::make('Headers')
                     ->schema([
-                        Forms\Components\TextInput::make('soap_action'),
                         Forms\Components\Repeater::make('headers')
                             ->schema([
                                 Forms\Components\TextInput::make('name')
@@ -78,7 +77,9 @@ class ApiResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name'),
-                Tables\Columns\TextColumn::make('service_type'),
+                Tables\Columns\TextColumn::make('service_type')
+                    ->label('Type')
+                    ->badge(),
                 Tables\Columns\TextColumn::make('certificate.name'),
             ])
             ->filters([

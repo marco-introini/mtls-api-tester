@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class LoadTestExecution extends Model
 {
-
     protected $guarded = [];
 
     /**

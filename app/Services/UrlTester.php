@@ -87,9 +87,7 @@ class UrlTester
         $this->curlHandle = curl_init();
 
         $this->setGenericCurlOptions();
-        if ($this->url->useCertificates()) {
-            $this->setCertificates();
-        }
+        $this->setCertificates();
 
         // default headers
         $headers = [
@@ -143,8 +141,8 @@ class UrlTester
 
         $this->curlInfo = curl_getinfo($this->curlHandle);
 
-        $this->requestHeaders = curl_getinfo($this->curlHandle,CURLINFO_HEADER_OUT);
-        $this->serverCertificates = json_encode(curl_getinfo($this->curlHandle,CURLINFO_CERTINFO));
+        $this->requestHeaders = curl_getinfo($this->curlHandle, CURLINFO_HEADER_OUT);
+        $this->serverCertificates = json_encode(curl_getinfo($this->curlHandle, CURLINFO_CERTINFO));
 
         return $this->response;
     }

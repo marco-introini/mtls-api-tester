@@ -22,11 +22,6 @@ class Api extends Model
         return $this->hasMany(Test::class);
     }
 
-    public function useCertificates(): bool
-    {
-        return ! is_null($this->certificate_id);
-    }
-
     protected function casts(): array
     {
         return [

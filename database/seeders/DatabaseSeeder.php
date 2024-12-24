@@ -14,8 +14,8 @@ class DatabaseSeeder extends Seeder
             'name' => 'admin',
             'email' => 'mint.dev@pm.me',
             'password' => Hash::make('password'),
-            'is_admin' => true,
         ])->save();
-        User::factory(10)->create();
+
+        User::factory(2)->create();
     }
 }

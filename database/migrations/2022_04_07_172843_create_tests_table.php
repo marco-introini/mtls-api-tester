@@ -1,17 +1,19 @@
 <?php
 
+use App\Models\API;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTestsTable extends Migration
-{
-    public function up()
+return new class extends Migration {
+
+    public function up(): void
     {
         Schema::create('tests', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('url_id');
-            $table->foreign('url_id')->on('urls')->references('id')->cascadeOnDelete();
+            $table->foreignIdFor(API::class)
+                ->constrained()
+                ->cascadeOnDelete();
             $table->string('called_url');
             $table->text('request')->nullable();
             $table->timestamp('request_date')->nullable();
@@ -29,8 +31,8 @@ class CreateTestsTable extends Migration
         });
     }
 
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('tests');
     }
-}
+};
