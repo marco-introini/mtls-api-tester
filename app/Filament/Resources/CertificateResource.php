@@ -30,14 +30,17 @@ class CertificateResource extends Resource
                     ->unique(ignoreRecord: true)
                     ->required()
                     ->label('Mnemonic name'),
-                Forms\Components\FileUpload::make('private_key')
-                    ->disk('certificates')
-                    ->directory('private_keys')
-                    ->preserveFilenames(),
-                Forms\Components\FileUpload::make('ca_certificate')
-                    ->disk('certificates')
-                    ->directory('ca')
-                    ->preserveFilenames(),
+                Forms\Components\Section::make('Certificates')
+                    ->schema([
+                        Forms\Components\FileUpload::make('private_key')
+                            ->disk('certificates')
+                            ->directory('private_keys')
+                            ->preserveFilenames(),
+                        Forms\Components\FileUpload::make('ca_certificate')
+                            ->disk('certificates')
+                            ->directory('ca')
+                            ->preserveFilenames(),
+                    ]),
             ]);
     }
 

@@ -26,29 +26,39 @@ class ApiResource extends Resource
         return $form
             ->columns(1)
             ->schema([
-                Forms\Components\TextInput::make('name')
-                    ->unique(ignoreRecord: true)
-                    ->required()
-                    ->columnSpan(2),
-                Forms\Components\TextInput::make('url')
-                    ->url()
-                    ->required()
-                    ->columnSpan(2),
-                Forms\Components\Select::make('service_type')
-                    ->label('Service Type')
-                    ->options(APITypeEnum::class)
-                    ->default(APITypeEnum::SOAP)
-                    ->required(),
-                Forms\Components\Select::make('method')
-                    ->label('Method')
-                    ->options(MethodEnum::class)
-                    ->default(MethodEnum::POST)
-                    ->required(),
-                Forms\Components\Select::make('certificate_id')
-                    ->relationship('certificate', 'name')
-                    ->label('Certificates')
-                    ->searchable()
-                    ->nullable(),
+                Forms\Components\Section::make('General')
+                    ->schema([
+                        Forms\Components\TextInput::make('name')
+                            ->unique(ignoreRecord: true)
+                            ->required(),
+                        Forms\Components\TextInput::make('url')
+                            ->url()
+                            ->required(),
+                    ])->columns(2),
+
+                Forms\Components\Section::make('Api Type')
+                    ->schema([
+                        Forms\Components\Select::make('service_type')
+                            ->label('Service Type')
+                            ->options(APITypeEnum::class)
+                            ->default(APITypeEnum::SOAP)
+                            ->required(),
+                        Forms\Components\Select::make('method')
+                            ->label('Method')
+                            ->options(MethodEnum::class)
+                            ->default(MethodEnum::POST)
+                            ->required(),
+                    ])->columns()->collapsible(),
+
+                Forms\Components\Section::make('mTLS Authentication')
+                    ->schema([
+                        Forms\Components\Select::make('certificate_id')
+                            ->relationship('certificate', 'name')
+                            ->label('Certificates')
+                            ->searchable()
+                            ->nullable(),
+                    ]),
+
                 Forms\Components\Section::make('Headers')
                     ->schema([
                         Forms\Components\Repeater::make('headers')
@@ -57,17 +67,19 @@ class ApiResource extends Resource
                                     ->required(),
                                 Forms\Components\TextInput::make('value')
                                     ->required(),
-                            ])->label('Header used to call the URL')
+                            ])->label('Headers used to call the Api')
                             ->nullable()
                             ->default(null),
                     ]),
                 Forms\Components\Textarea::make('request')
                     ->required()
                     ->label('Request to be sent to URL')
+                    ->grow()
                     ->columnSpanFull(),
                 Forms\Components\Textarea::make('expected_response')
                     ->nullable()
                     ->label('Expected Response (will be checked as substring)')
+                    ->grow()
                     ->columnSpanFull(),
             ])->columns(2);
     }
