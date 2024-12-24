@@ -32,18 +32,11 @@ class CertificateResource extends Resource
                     ->label('Mnemonic name'),
                 Forms\Components\FileUpload::make('private_key')
                     ->disk('certificates')
-                    ->directory('private')
-                    ->visibility('private')
-                    ->preserveFilenames(),
-                Forms\Components\FileUpload::make('public_key')
-                    ->disk('certificates')
-                    ->directory('public')
-                    ->visibility('private')
+                    ->directory('private_keys')
                     ->preserveFilenames(),
                 Forms\Components\FileUpload::make('ca_certificate')
                     ->disk('certificates')
                     ->directory('ca')
-                    ->visibility('private')
                     ->preserveFilenames(),
             ]);
     }
