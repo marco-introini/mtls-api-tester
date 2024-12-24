@@ -2,18 +2,10 @@
 
 recreate:
 	php artisan migrate:fresh --seed
-	mysql -u root -h 127.0.0.1 < storage/sql/certificates.sql
-	mysql -u root -h 127.0.0.1 < storage/sql/urls.sql
 
 check:
 	./vendor/bin/phpstan analyse
-
-delete_certificates:
-	rm -f storage/app/certificates/ca/*
-	rm -f storage/app/certificates/private/*
-	rm -f storage/app/certificates/public/*
-
-test:
+	./vendor/bin/rector --dry-run
 	./vendor/bin/pest
 
 first_production:
@@ -40,12 +32,7 @@ clear:
 	php artisan config:clear
 	php artisan route:clear
 	php artisan view:clear
-
-clear_all: clear
-	rm -f database_backup.sql
-
-backup:
-	php artisan backup:run
+	php artisan cache:clear
 
 format_code:
 	./vendor/bin/pint
