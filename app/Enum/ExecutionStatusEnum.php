@@ -14,7 +14,7 @@ enum ExecutionStatusEnum: string implements HasColor, HasLabel, HasIcon
     case ERROR = 'ERROR';
 
 
-    public function getColor(): string|array|null
+    public function getColor(): string
     {
         return match ($this) {
             self::CREATED => 'gray',

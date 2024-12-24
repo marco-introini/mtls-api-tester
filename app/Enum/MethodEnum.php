@@ -13,7 +13,7 @@ enum MethodEnum: string implements HasLabel, HasColor
     case PATCH = 'PATCH';
     case DELETE = 'DELETE';
 
-    public function getColor(): string|array|null
+    public function getColor(): string
     {
         return match ($this) {
             self::POST => 'warning',

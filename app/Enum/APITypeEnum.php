@@ -10,7 +10,7 @@ enum APITypeEnum: string implements HasColor, HasLabel
     case SOAP = 'SOAP';
     case REST = 'REST';
 
-    public function getColor(): string|array|null
+    public function getColor(): string
     {
         return match ($this) {
             self::SOAP => 'warning',

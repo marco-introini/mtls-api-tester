@@ -10,9 +10,11 @@ use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Form;
+use Filament\Infolists\Infolist;
 use Filament\Resources\Resource;
 use Filament\Tables\Table;
 use Filament\Tables;
+use Illuminate\Database\Eloquent\Model;
 
 class TestResource extends Resource
 {
@@ -24,45 +26,13 @@ class TestResource extends Resource
 
     protected static ?int $navigationSort = 4;
 
-    public static function form(Form $form): Form
+    public static function infolist(Infolist $infolist): Infolist
     {
-        return $form
-            ->schema([
-                TextInput::make('called_url')
-                    ->columnSpan(2),
-                TextInput::make('created_at'),
-                TextInput::make('updated_at'),
-                Section::make('Status')
-                    ->schema([
-                        Toggle::make('response_ok')
-                            ->onColor('success')
-                            ->offColor('danger')
-                            ->inline(false),
-                        TextInput::make('response_time')
-                            ->postfix('milliseconds'),
-                    ])->columns(2),
-                Section::make('Request')
-                    ->schema([
-                        Textarea::make('request'),
-                        TextInput::make('request_date'),
-                        Textarea::make('request_headers'),
-                        TextInput::make('request_certificates'),
-                    ])
-                    ->collapsed(),
-                Section::make('Response')
-                    ->schema([
-                        Textarea::make('response'),
-                        TextInput::make('response_date'),
-                        Textarea::make('server_certificates'),
-                    ])
-                    ->collapsed(),
-                Section::make('Curl Debug')
-                    ->schema([
-                        KeyValue::make('curl_info'),
-                    ])
-                    ->collapsed(),
-            ]);
+        return $infolist->schema([
+
+        ]);
     }
+
 
     public static function table(Table $table): Table
     {
@@ -78,16 +48,8 @@ class TestResource extends Resource
                 Tables\Columns\TextColumn::make('response_time')
                     ->label('Duration')
                     ->sortable(),
-                Tables\Columns\BadgeColumn::make('response_ok')
-                    ->colors([
-                        'danger' => 0,
-                        'success' => 1,
-                    ])
-                    ->enum([
-                        false => 'Failed',
-                        true => 'Success',
-                    ])
-                    ->label('Success'),
+                Tables\Columns\IconColumn::make('response_ok')
+                    ->boolean(),
             ])
             ->filters([
                 //
@@ -106,9 +68,12 @@ class TestResource extends Resource
     {
         return [
             'index' => Pages\ListTests::route('/'),
-            'create' => Pages\CreateTest::route('/create'),
-            'edit' => Pages\EditTest::route('/{record}/edit'),
             'view' => Pages\ViewTest::route('/{record}'),
         ];
+    }
+
+    public static function canEdit(Model $record): bool
+    {
+        return false;
     }
 }

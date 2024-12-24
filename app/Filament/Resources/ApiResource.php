@@ -7,7 +7,9 @@ use App\Enum\MethodEnum;
 use App\Models\Api;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Notifications\Notification;
 use Filament\Resources\Resource;
+use Filament\Support\Enums\ActionSize;
 use Filament\Tables;
 use Filament\Tables\Table;
 
@@ -111,7 +113,23 @@ class ApiResource extends Resource
                     ->relationship('certificate', 'name'),
             ])
             ->actions([
-                Tables\Actions\DeleteAction::make(),
+                Tables\Actions\Action::make('Execute test')
+                    ->button()
+                    ->color('primary')
+                    ->requiresConfirmation()
+                    ->action(function (Api $api) {
+
+                        Notification::make()
+                            ->success()
+                            ->title('Execution Scheduled')
+                            ->body("Correctly scheduled")
+                            ->send();
+                    }),
+                Tables\Actions\ActionGroup::make([
+                    Tables\Actions\DeleteAction::make(),
+                ])->label('Actions')
+                    ->icon('heroicon-m-ellipsis-vertical')
+                    ->size(ActionSize::Small)->button()->color('danger'),
             ]);
     }
 
