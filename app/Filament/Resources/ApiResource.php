@@ -76,14 +76,26 @@ class ApiResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('name'),
+                Tables\Columns\TextColumn::make('name')
+                    ->searchable()
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('service_type')
+                    ->sortable()
                     ->label('Type')
+                    ->badge(),
+                Tables\Columns\TextColumn::make('method')
+                    ->sortable()
+                    ->label('Method')
                     ->badge(),
                 Tables\Columns\TextColumn::make('certificate.name'),
             ])
             ->filters([
-                //
+                Tables\Filters\SelectFilter::make('service_type')
+                    ->options(APITypeEnum::class),
+                Tables\Filters\SelectFilter::make('method')
+                    ->options(MethodEnum::class),
+                Tables\Filters\SelectFilter::make('certificate')
+                    ->relationship('certificate', 'name'),
             ])
             ->actions([
                 Tables\Actions\DeleteAction::make(),

@@ -46,16 +46,15 @@ class CertificateResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name'),
-                Tables\Columns\TextColumn::make('urls')
-                    ->label('Used in Urls')
-                    ->getStateUsing(fn(Certificate $record) => Api::where('certificate_id', '=', $record->id)->count()),
+                Tables\Columns\TextColumn::make('apis_count')
+                    ->label('Times Used')
+                    ->counts('apis'),
             ])
             ->filters([
                 //
             ])
             ->pushActions([
-                Tables\Actions\LinkAction::make('delete')
-                    ->action(fn (Certificate $record) => $record->delete())
+                Tables\Actions\DeleteAction::make('delete')
                     ->requiresConfirmation()
                     ->color('danger')
                     ->label('Delete Certificate'),
