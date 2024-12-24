@@ -31,6 +31,7 @@ class AdminPanelProvider extends PanelProvider
             ->passwordReset()
             ->registration()
             ->profile()
+            ->maxContentWidth('full')
             ->colors([
                 'primary' => Color::Blue,
             ])
