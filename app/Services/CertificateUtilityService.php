@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-use App\DataTransferObjects\KeyPair;
+use App\DTO\KeyPair;
 use Illuminate\Support\Carbon;
 
 class CertificateUtilityService
