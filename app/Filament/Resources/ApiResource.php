@@ -69,6 +69,7 @@ class ApiResource extends Resource
                                     ->required(),
                             ])->label('Headers used to call the Api')
                             ->nullable()
+                            ->columns(2)
                             ->default(null),
                     ]),
                 Forms\Components\Textarea::make('request')

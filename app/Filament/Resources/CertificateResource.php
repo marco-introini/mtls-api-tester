@@ -31,15 +31,13 @@ class CertificateResource extends Resource
                     ->required()
                     ->label('Mnemonic name'),
                 Forms\Components\Section::make('Certificates')
+                    ->description('Certificates in PEM format')
                     ->schema([
-                        Forms\Components\FileUpload::make('private_key')
-                            ->disk('certificates')
-                            ->directory('private_keys')
-                            ->preserveFilenames(),
-                        Forms\Components\FileUpload::make('ca_certificate')
-                            ->disk('certificates')
-                            ->directory('ca')
-                            ->preserveFilenames(),
+                        Forms\Components\Textarea::make('private_key')
+                            ->grow()
+                            ->required(),
+                        Forms\Components\Textarea::make('ca_certificate')
+                            ->grow(),
                     ]),
             ]);
     }
