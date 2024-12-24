@@ -20,6 +20,7 @@ enum MethodEnum: string implements HasLabel, HasColor
             self::GET => 'success',
             self::PUT => 'info',
             self::PATCH => 'gray',
+            self::DELETE => 'danger',
         };
     }
 
@@ -30,6 +31,7 @@ enum MethodEnum: string implements HasLabel, HasColor
             self::GET => 'GET',
             self::PUT => 'PUT',
             self::PATCH => 'PATCH',
+            self::DELETE => 'DELETE',
         };
     }
 }

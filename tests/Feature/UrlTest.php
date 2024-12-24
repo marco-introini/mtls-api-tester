@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\Url;
+use App\Models\Api;
 use App\Services\UrlTester;
 
 

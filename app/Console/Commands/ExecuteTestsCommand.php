@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\Models\Url;
+use App\Models\Api;
 use App\Services\UrlTester;
 use Illuminate\Console\Command;
 
@@ -14,7 +14,7 @@ class ExecuteTestsCommand extends Command
 
     public function handle()
     {
-        foreach (Url::all() as $url) {
+        foreach (Api::all() as $url) {
             echo 'Executing '.$url->name.PHP_EOL;
             $tester = new UrlTester($url);
             $tester->executeTest();

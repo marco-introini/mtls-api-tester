@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Filament\Resources\UrlResource\Pages;
+namespace App\Filament\Resources\ApiResource\Pages;
 
-use App\Filament\Resources\UrlResource;
+use App\Filament\Resources\ApiResource;
 use Filament\Resources\Pages\EditRecord;
 
-class EditUrl extends EditRecord
+class EditApi extends EditRecord
 {
-    protected static string $resource = UrlResource::class;
+    protected static string $resource = ApiResource::class;
 
     // Aggiunto per tornare alla pagina indice
     protected function getRedirectUrl(): string

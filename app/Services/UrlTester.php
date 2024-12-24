@@ -5,7 +5,7 @@ namespace App\Services;
 use App\Enum\MethodEnum;
 use App\Enum\APITypeEnum;
 use App\Models\Test;
-use App\Models\Url;
+use App\Models\Api;
 use CurlHandle;
 use DOMDocument;
 use Illuminate\Support\Facades\Storage;
@@ -29,7 +29,7 @@ class UrlTester
     public string $requestCertificate = "";
 
     public function __construct(
-        public Url $url
+        public Api $url
     ) {
     }
 

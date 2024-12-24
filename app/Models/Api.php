@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Url extends Model
+class Api extends Model
 {
     protected $guarded = [];
 
@@ -26,6 +26,7 @@ class Url extends Model
     {
         return ! is_null($this->certificate_id);
     }
+
     protected function casts(): array
     {
         return [

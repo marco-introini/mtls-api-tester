@@ -11,11 +11,11 @@ class LoadTest extends Model
     protected $guarded = [];
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<\App\Models\Url, \App\Models\LoadTest>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<\App\Models\Api, \App\Models\LoadTest>
      */
     public function url(): BelongsTo
     {
-        return $this->belongsTo(Url::class);
+        return $this->belongsTo(Api::class);
     }
 
     /**

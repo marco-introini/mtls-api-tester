@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Filament\Resources\UrlResource\Pages;
+namespace App\Filament\Resources\ApiResource\Pages;
 
-use App\Filament\Resources\UrlResource;
+use App\Filament\Resources\ApiResource;
 use Filament\Actions\CreateAction;
 use Filament\Resources\Pages\ListRecords;
 
-class ListUrls extends ListRecords
+class ListApis extends ListRecords
 {
-    protected static string $resource = UrlResource::class;
+    protected static string $resource = ApiResource::class;
 
     #[\Override]
     protected function getHeaderActions(): array

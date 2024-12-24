@@ -11,7 +11,7 @@ class Test extends Model
 
     public function url(): ?BelongsTo
     {
-        return $this->belongsTo(Url::class);
+        return $this->belongsTo(Api::class);
     }
     protected function casts(): array
     {

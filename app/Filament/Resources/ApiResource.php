@@ -2,26 +2,24 @@
 
 namespace App\Filament\Resources;
 
-use App\Enum\MethodEnum;
 use App\Enum\APITypeEnum;
-use App\Filament\Resources\UrlResource\Pages;
-use App\Models\Certificate;
-use App\Models\Url;
+use App\Enum\MethodEnum;
+use App\Models\Api;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
-use Filament\Tables\Table;
 use Filament\Tables;
+use Filament\Tables\Table;
 
-class UrlResource extends Resource
+class ApiResource extends Resource
 {
-    protected static ?string $model = Url::class;
+    protected static ?string $model = Api::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-globe-alt';
 
-    protected static ?string $navigationLabel = 'Site Urls';
+    protected static ?string $navigationLabel = 'Site Apis';
 
-    protected static ?int $navigationSort = 1;
+    protected static ?int $navigationSort = 2;
 
     public static function form(Form $form): Form
     {
@@ -101,9 +99,9 @@ class UrlResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListUrls::route('/'),
-            'create' => Pages\CreateUrl::route('/create'),
-            'edit' => Pages\EditUrl::route('/{record}/edit'),
+            'index' => ApiResource\Pages\ListApis::route('/'),
+            'create' => ApiResource\Pages\CreateApi::route('/create'),
+            'edit' => ApiResource\Pages\EditApi::route('/{record}/edit'),
         ];
     }
 }

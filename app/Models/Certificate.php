@@ -11,6 +11,6 @@ class Certificate extends Model
 
     public function urls(): ?HasMany
     {
-        return $this->hasMany(Url::class);
+        return $this->hasMany(Api::class);
     }
 }

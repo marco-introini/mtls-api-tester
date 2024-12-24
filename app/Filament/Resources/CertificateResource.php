@@ -4,7 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\CertificateResource\Pages;
 use App\Models\Certificate;
-use App\Models\Url;
+use App\Models\Api;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -19,7 +19,7 @@ class CertificateResource extends Resource
 
     protected static ?string $navigationLabel = 'Personal and CA Certificates';
 
-    protected static ?int $navigationSort = 2;
+    protected static ?int $navigationSort = 1;
 
     public static function form(Form $form): Form
     {
@@ -55,7 +55,7 @@ class CertificateResource extends Resource
                 Tables\Columns\TextColumn::make('name'),
                 Tables\Columns\TextColumn::make('urls')
                     ->label('Used in Urls')
-                    ->getStateUsing(fn(Certificate $record) => Url::where('certificate_id', '=', $record->id)->count()),
+                    ->getStateUsing(fn(Certificate $record) => Api::where('certificate_id', '=', $record->id)->count()),
             ])
             ->filters([
                 //
