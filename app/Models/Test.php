@@ -17,10 +17,9 @@ class Test extends Model
     protected function casts(): array
     {
         return [
-            'request_headers' => 'json',
+            'request_headers' => 'array',
             'request_date' => 'datetime',
             'response_time' => 'datetime',
-            'curl_info' => 'json',
         ];
     }
 }

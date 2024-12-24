@@ -3,7 +3,6 @@
 namespace App\Services;
 
 use App\Enum\APITypeEnum;
-use App\Models\Test;
 use App\Models\Api;
 use DOMDocument;
 use Illuminate\Support\Facades\Http;
@@ -14,10 +13,7 @@ class UrlTester
     protected string $response;
     protected string $beginTime;
     protected string $endTime;
-    protected array $curlInfo;
     protected array $requestHeaders;
-    protected string $serverCertificates = "";
-    protected string $requestCertificate = "";
 
     public function __construct(
         public Api $api
@@ -57,36 +53,10 @@ class UrlTester
             $this->response = json_encode(json_decode($result), JSON_PRETTY_PRINT);
         }
 
-        $this->curlInfo = curl_getinfo($this->curlHandle);
-
-        $this->requestHeaders = curl_getinfo($this->curlHandle, CURLINFO_HEADER_OUT);
-        $this->serverCertificates = json_encode(curl_getinfo($this->curlHandle, CURLINFO_CERTINFO));
+        $this->requestHeaders = $response->headers();
+        //$this->serverCertificates = $response->ce json_encode(curl_getinfo($this->curlHandle, CURLINFO_CERTINFO));
 
         return $this->response;
-    }
-
-    private function checkSuccess(): bool
-    {
-        return str_contains($this->response, $this->api->expected_response);
-    }
-
-    public function saveResultToTestModel(): void
-    {
-        Test::create([
-            'url_id' => $this->api->id,
-            'request' => $this->api->request,
-            'request_date' => $this->beginTime,
-            'response' => $this->response,
-            'response_date' => $this->endTime,
-            'response_time' => curl_getinfo($this->curlHandle, CURLINFO_TOTAL_TIME_T),
-            'response_ok' => $this->checkSuccess(),
-            'curl_info' => $this->curlInfo,
-            'called_url' => $this->api->url,
-            'expected_response' => $this->api->expected_response,
-            'server_certificates' => $this->serverCertificates,
-            'request_certificates' => $this->requestCertificate,
-            'request_headers' => $this->requestHeaders,
-        ]);
     }
 
     /**

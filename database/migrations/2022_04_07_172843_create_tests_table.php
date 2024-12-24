@@ -22,10 +22,8 @@ return new class extends Migration {
             $table->text('response')->nullable();
             $table->text('expected_response')->nullable();
             $table->timestamp('response_date')->nullable();
-            $table->text('server_certificates')->nullable();
             $table->bigInteger('response_time')->nullable();
             $table->boolean('response_ok')->default(true);
-            $table->text('curl_info')->nullable();
 
             $table->timestamps();
         });
