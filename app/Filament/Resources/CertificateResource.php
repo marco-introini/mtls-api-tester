@@ -36,7 +36,14 @@ class CertificateResource extends Resource
                         Forms\Components\Textarea::make('private_key')
                             ->grow()
                             ->required(),
+                        Forms\Components\Textarea::make('public_cert')
+                            ->label('Public Certificate')
+                            ->hint('Public certificate must correspond to the private key')
+                            ->hintColor('danger')
+                            ->grow()
+                            ->required(),
                         Forms\Components\Textarea::make('ca_certificate')
+                            ->hint('Optional - must be used only if server has an unknown Signer')
                             ->grow(),
                     ]),
             ]);

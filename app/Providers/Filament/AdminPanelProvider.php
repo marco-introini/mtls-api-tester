@@ -32,6 +32,7 @@ class AdminPanelProvider extends PanelProvider
             ->registration()
             ->profile()
             ->maxContentWidth('full')
+            ->topNavigation()
             ->colors([
                 'primary' => Color::Blue,
             ])

@@ -12,6 +12,7 @@ return new class extends Migration {
             $table->id();
             $table->string('name')->unique();
             $table->text('private_key')->nullable();
+            $table->text('public_cert')->nullable();
             $table->text('ca_certificate')->nullable();
 
             $table->timestamps();
