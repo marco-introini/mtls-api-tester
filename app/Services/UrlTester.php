@@ -3,7 +3,7 @@
 namespace App\Services;
 
 use App\Enum\MethodEnum;
-use App\Enum\ServiceTypeEnum;
+use App\Enum\APITypeEnum;
 use App\Models\Test;
 use App\Models\Url;
 use CurlHandle;
@@ -98,14 +98,14 @@ class UrlTester
             'Content-length: '.strlen($this->url->request),
         ];
 
-        if ($this->url->service_type == ServiceTypeEnum::SOAP) {
+        if ($this->url->service_type == APITypeEnum::SOAP) {
             $headers[] = 'Content-type: text/xml;charset="utf-8"';
             $headers[] = 'Accept: text/xml';
             if (!is_null($this->url->soap_action)) {
                 $headers[] = 'SOAPAction: '.$this->url->soap_action;
             }
         }
-        if ($this->url->service_type == ServiceTypeEnum::REST) {
+        if ($this->url->service_type == APITypeEnum::REST) {
             $headers[] = 'Content-type: application/json;charset="utf-8"';
             $headers[] = 'Accept: application/json';
         }
@@ -131,7 +131,7 @@ class UrlTester
             return $this->response;
         }
 
-        if ($this->url->service_type == ServiceTypeEnum::SOAP) {
+        if ($this->url->service_type == APITypeEnum::SOAP) {
             $dom = new DOMDocument('1.0');
             $dom->preserveWhiteSpace = true;
             $dom->formatOutput = true;

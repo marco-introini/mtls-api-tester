@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use App\Enum\MethodEnum;
-use App\Enum\ServiceTypeEnum;
+use App\Enum\APITypeEnum;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -31,7 +31,7 @@ class Url extends Model
         return [
             'headers' => 'json',
             'method' => MethodEnum::class,
-            'service_type' => ServiceTypeEnum::class,
+            'service_type' => APITypeEnum::class,
         ];
     }
 }

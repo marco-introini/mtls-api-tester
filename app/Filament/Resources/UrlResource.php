@@ -3,7 +3,7 @@
 namespace App\Filament\Resources;
 
 use App\Enum\MethodEnum;
-use App\Enum\ServiceTypeEnum;
+use App\Enum\APITypeEnum;
 use App\Filament\Resources\UrlResource\Pages;
 use App\Models\Certificate;
 use App\Models\Url;
@@ -38,8 +38,8 @@ class UrlResource extends Resource
                     ->columnSpan(2),
                 Forms\Components\Select::make('service_type')
                     ->label('Service Type')
-                    ->options(ServiceTypeEnum::class)
-                    ->default(ServiceTypeEnum::SOAP)
+                    ->options(APITypeEnum::class)
+                    ->default(APITypeEnum::SOAP)
                     ->required(),
                 Forms\Components\Select::make('method')
                     ->label('Method')

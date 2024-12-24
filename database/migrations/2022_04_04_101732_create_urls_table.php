@@ -1,7 +1,7 @@
 <?php
 
 use App\Enum\MethodEnum;
-use App\Enum\ServiceTypeEnum;
+use App\Enum\APITypeEnum;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -16,7 +16,7 @@ class CreateUrlsTable extends Migration
             $table->string('url');
             $table->json('headers')->nullable();
             $table->string('method')->default(MethodEnum::POST->value);
-            $table->string('service_type')->default(ServiceTypeEnum::SOAP->value);
+            $table->string('service_type')->default(APITypeEnum::SOAP->value);
             $table->text('soap_action')->nullable();
             $table->text('request');
             $table->text('expected_response')->nullable();
