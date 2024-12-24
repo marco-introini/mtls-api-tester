@@ -11,20 +11,21 @@ class LoadTest extends Model
     protected $guarded = [];
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<\App\Models\Api, \App\Models\LoadTest>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<\App\Models\Api, $this>
      */
-    public function url(): BelongsTo
+    public function api(): BelongsTo
     {
         return $this->belongsTo(Api::class);
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<\App\Models\LoadTestExecution>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<\App\Models\LoadTestExecution, $this>
      */
     public function executions(): HasMany
     {
         return $this->hasMany(LoadTestExecution::class);
     }
+
     protected function casts(): array
     {
         return [

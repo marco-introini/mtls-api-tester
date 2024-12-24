@@ -9,10 +9,11 @@ class Test extends Model
 {
     protected $guarded = [];
 
-    public function url(): ?BelongsTo
+    public function api(): ?BelongsTo
     {
         return $this->belongsTo(Api::class);
     }
+
     protected function casts(): array
     {
         return [

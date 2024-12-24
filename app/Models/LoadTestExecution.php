@@ -12,12 +12,13 @@ class LoadTestExecution extends Model
     protected $guarded = [];
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<\App\Models\LoadTest, \App\Models\LoadTestExecution>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<\App\Models\LoadTest, $this>
      */
     public function test(): BelongsTo
     {
         return $this->belongsTo(LoadTest::class);
     }
+
     protected function casts(): array
     {
         return [
