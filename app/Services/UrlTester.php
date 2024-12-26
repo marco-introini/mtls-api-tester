@@ -4,57 +4,77 @@ namespace App\Services;
 
 use App\Enum\APITypeEnum;
 use App\Models\Api;
+use App\Models\Test;
 use DOMDocument;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 
 class UrlTester
 {
-    protected string $response;
-    protected string $beginTime;
-    protected string $endTime;
-    protected array $requestHeaders;
-
     public function __construct(
         public Api $api
     ) {
     }
 
-    public function executeTest(): string
+    public function executeTest(): Test
     {
-        $this->beginTime = now();
+        $beginTime = now();
+
+        $headers = $this->api->headers;
+        $body = $this->api->request;
+        $contentType = match ($this->api->service_type) {
+            APITypeEnum::SOAP => 'text/xml',
+            APITypeEnum::REST => 'application/json',
+        };
+        $url = $this->api->url;
+        $verb = $this->api->method->value;
+
+        $rawRequest = [
+            'method' => $verb,
+            'url' => $url,
+            'headers' => $headers,
+            'body' => $body,
+        ];
+
         try {
-            $response = Http::withOptions([
+            $httpResponse = Http::withOptions([
                 'cert' => self::createTempStreamFromString($this->api->certificate->public_cert,
                     $this->api->certificate->private_key),
                 'verify' => self::createTempStreamFromString($this->api->certificate->ca_cert),
-            ])->withBody($this->api->request, match ($this->api->service_type) {
-                APITypeEnum::SOAP => 'text/xml',
-                APITypeEnum::REST => 'application/json',
-            })
-                ->send($this->api->method->value, $this->api->url);
+            ])->withBody($body, $contentType)
+                ->withHeaders($headers)
+                ->send($verb, $url);
 
-            $result = $response->body();
+            $result = $httpResponse->body();
+
+            $rawResponse = [
+                'status' => $httpResponse->status(),
+                'headers' => $httpResponse->headers(),
+                'body' => $httpResponse->body(),
+            ];
 
         } catch (\Exception $e) {
             Log::error('Errore nella connessione mTLS:', ['message' => $e->getMessage()]);
-            return $e->getMessage();
+
+            return Test::create([
+                'api_id' => $this->api->id,
+
+            ]);
+
         }
 
-        $this->endTime = now();
+        $endTime = now();
 
         if ($this->api->service_type == APITypeEnum::SOAP) {
             $dom = new DOMDocument('1.0');
             $dom->preserveWhiteSpace = true;
             $dom->formatOutput = true;
             $dom->loadXML($result);
-            $this->response = $dom->saveXML();
+            $response = $dom->saveXML();
         } else {
-            $this->response = json_encode(json_decode($result), JSON_PRETTY_PRINT);
+            $response = json_encode(json_decode($result), JSON_PRETTY_PRINT);
         }
 
-        $this->requestHeaders = $response->headers();
-        //$this->serverCertificates = $response->ce json_encode(curl_getinfo($this->curlHandle, CURLINFO_CERTINFO));
 
         return $this->response;
     }
@@ -73,13 +93,13 @@ class UrlTester
         fwrite($tmpCert, $content);
         rewind($tmpCert);
 
-        // Se è specificata una chiave privata, restituisci entrambi come array.
+        // fir private key, return both private key and public cert
         if ($key !== null) {
             $tmpKey = fopen('php://temp', 'r+');
             fwrite($tmpKey, $key);
             rewind($tmpKey);
 
-            return [$tmpCert, $tmpKey]; // Cert e Key insieme
+            return [$tmpCert, $tmpKey];
         }
 
         return $tmpCert;

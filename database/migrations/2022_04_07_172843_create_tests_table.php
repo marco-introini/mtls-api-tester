@@ -16,13 +16,13 @@ return new class extends Migration {
                 ->cascadeOnDelete();
             $table->string('called_url');
             $table->text('request')->nullable();
-            $table->timestamp('request_date')->nullable();
-            $table->text('request_headers')->nullable();
+            $table->text('request_raw')->nullable();
+            $table->timestamp('request_timestamp')->nullable();
             $table->text('request_certificates')->nullable();
             $table->text('response')->nullable();
-            $table->text('expected_response')->nullable();
-            $table->timestamp('response_date')->nullable();
-            $table->bigInteger('response_time')->nullable();
+            $table->text('response_raw')->nullable();
+            $table->timestamp('response_timestamp')->nullable();
+            $table->text('response_expected')->nullable();
             $table->boolean('response_ok')->default(true);
 
             $table->timestamps();
