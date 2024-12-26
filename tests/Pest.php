@@ -49,7 +49,3 @@ function something()
     // ..
 }
 
-function login(User $user = null): void
-{
-    actingAs($user ?? User::factory()->create());
-}
