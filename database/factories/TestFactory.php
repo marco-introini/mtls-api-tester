@@ -13,28 +13,25 @@ class TestFactory extends Factory
 
     public function definition(): array
     {
+        $api = Api::inRandomOrder()->first() ?? Api::factory()->create();
         return [
-            'api' => Api::inRandomOrder()->first() ?? Api::,
-            'called_url' => $this->faker->url(),
-            'request' => $this->faker->word(),
-            'request_raw' => $this->faker->words(),
+            'api' => $api,
+            'called_url' => $api->url(),
+            'request' => $api->request,
+            'request_raw' => [
+                'headers' => $api->headers,
+                'body' => $api->request,
+                'method' => $api->method->value,
+            ],
             'request_timestamp' => Carbon::now(),
-            'request_certificates' => $this->faker->word(),
-            'response' => $this->faker->word(),
-            'response_raw' => $this->faker->words(),
-            'response_timestamp' => Carbon::now(),
-            'response_expected' => $this->faker->word(),
-            'response_ok' => $this->faker->boolean(),
-            'created_at' => Carbon::now(),
-            'updated_at' => Carbon::now(),
-            'curl_info' => $this->faker->word(),
-            'response_time' => Carbon::now(),
-            'server_certificates' => $this->faker->word(),
-            'expected_response' => $this->faker->word(),
-            'request_headers' => $this->faker->word(),
-            'request_date' => Carbon::now(),
-
-            'api_id' => Api::factory(),
+            'request_certificates' => [
+                $api->certificate->public_cert
+            ],
+            'response' => fake()->sentence(),
+            'response_raw' => [],
+            'response_timestamp' => Carbon::now()->addSeconds(random_int(1,20)),
+            'response_expected' => $api->expected_response(),
+            'response_ok' => fake()->boolean(),
         ];
     }
 }
